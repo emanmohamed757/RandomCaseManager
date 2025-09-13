@@ -35,11 +35,11 @@ jobs:
     - name: Replace connection string placeholder
       uses: richardrigutins/replace-in-files@v2
       with:
-        files: '.\RandomCaseManager\bin\Debug\RandomCaseManager.exe.config'
+        files: '.\RandomCaseManager\bin\EFMigration\RandomCaseManager.exe.config'
         search-text: '__CONNECTION_STRING_PLACEHOLDER__'
         replacement-text: '${{ env.CONNECTION_STRING }}'
       env:
         CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
 
     - name: Perform Update-Database 
-      run: .\packages\EntityFramework.6.5.1\tools\net45\any\ef6.exe database update --assembly .\RandomCaseManager\bin\Debug\RandomCaseManager.exe --config $env:GITHUB_WORKSPACE\RandomCaseManager\App.config
+      run: .\packages\EntityFramework.6.5.1\tools\net45\any\ef6.exe database update --assembly .\RandomCaseManager\bin\EFMigration\RandomCaseManager.exe --config $env:GITHUB_WORKSPACE\RandomCaseManager\App.config
