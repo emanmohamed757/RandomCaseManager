@@ -32,4 +32,4 @@ jobs:
       run: msbuild
 
     - name: Perform Update-Database 
-      run: .\packages\EntityFramework.6.5.1\tools\net45\any\ef6.exe database update --assembly .\RandomCaseManager\bin\Debug\RandomCaseManager.exe --config ${GITHUB_WORKSPACE}\RandomCaseManager\App.config
+      run: .\packages\EntityFramework.6.5.1\tools\net45\any\ef6.exe database update --assembly .\RandomCaseManager\bin\Debug\RandomCaseManager.exe --config $env:GITHUB_WORKSPACE\RandomCaseManager\App.config
