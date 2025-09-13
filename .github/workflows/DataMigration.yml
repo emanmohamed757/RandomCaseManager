@@ -35,7 +35,7 @@ jobs:
     - name: Replace connection string placeholder
       uses: richardrigutins/replace-in-files@v2
       with:
-        files: '**/*.config'
+        files: 'RandomCaseManager\bin\EFMigration\RandomCaseManager.exe.config'
         search-text: '__CONNECTION_STRING_PLACEHOLDER__'
         replacement-text: '${{ env.CONNECTION_STRING }}'
       env:
