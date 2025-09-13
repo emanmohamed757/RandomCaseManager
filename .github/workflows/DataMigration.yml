@@ -14,7 +14,7 @@ jobs:
   migration:
     # This job will only run when a pull request is merged
     if: github.event.pull_request.merged == true
-    runs-on: windows-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v5.0.0
 
@@ -32,4 +32,4 @@ jobs:
       run: msbuild
 
     - name: Perform Update-Database 
-      run: ..\packages\EntityFramework.6.5.1\tools\net45\any\ef6.exe database update --assembly .\bin\Debug\RandomCaseManager.exe --config ${{ env.GITHUB_WORKSPACE }}\App.config
+      run: .\packages\EntityFramework.6.5.1\tools\net45\any\ef6.exe database update --assembly .\bin\Debug\RandomCaseManager.exe --config ${{ env.GITHUB_WORKSPACE }}\App.config
