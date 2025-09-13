@@ -1,0 +1,35 @@
+# The name of the workflow.
+name: DataMigration
+
+# Controls when the action will run. Triggers the workflow on push or pull request events.
+on:
+  pull_request:
+    branches: [ Development ]
+    types:
+      - closed
+  workflow_dispatch:
+  
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel.
+jobs:
+  migration:
+    # This job will only run when a pull request is merged
+    if: github.event.pull_request.merged == true
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v5.0.0
+
+    # MSBuild is used for building applications via the commandline.  
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2.0.0
+    
+    - name: Restore NuGet packages
+      run: nuget restore
+      
+    - name: Build the Solution
+      run: msbuild
+
+    - name: Perform Update-Database 
+      run: ..\packages\EntityFramework.6.5.1\tools\net45\any\ef6.exe database update --assembly .\bin\Debug\RandomCaseManager.exe --config ${{ env.GITHUB_WORKSPACE }}\App.config
