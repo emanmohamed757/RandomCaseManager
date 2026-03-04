@@ -1,0 +1,11 @@
+name: Echo run_id
+
+on:
+  workflow_dispatch:
+
+jobs:
+  echo-run-id:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo run_id
+        run: echo "run_id=${{ github.run_id }}"
